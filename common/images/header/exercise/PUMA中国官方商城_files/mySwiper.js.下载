@@ -1,0 +1,128 @@
+$(document).ready(function() {
+
+	if ($.browser.msie){
+		// 鍥犳js鍏敤,鎵�浠ラ渶鍒ゆ柇horizontal瀵硅薄鏄惁瀛樺湪
+		if (typeof horizontal != 'undefined'){
+			$('.new-sub-banner').each(function(index, el) {
+				var next = $('.btn-arrow-red-right', el),
+					prev = $('.btn-arrow-red-left', el);
+
+				new horizontal($('.swiper-container', el), {
+					elements: '.swiper-slide',
+					prev: prev,
+					next: next,
+					disable: 'swiper-button-disabled',
+					visibles: 3,
+					circle: false
+				});
+			});
+			
+			
+			
+			new horizontal('.recommended-content .swiper-container', {
+				elements: '.swiper-slide',
+				prev: '.recommended-content .btn-arrow-red-left',
+				next: '.recommended-content .btn-arrow-red-right',
+				disable: 'swiper-button-disabled',
+				visibles: 4,
+				circle: false
+			});
+
+
+			new horizontal('.buynowshoping .swiper-container', {
+				elements: '.swiper-slide',
+				prev: '.buynowshoping .btn-arrow-red-left',
+				next: '.buynowshoping .btn-arrow-red-right',
+				disable: 'swiper-button-disabled',
+				visibles: 3,
+				circle: false
+			});
+
+			new horizontal('.pdp-hero-goods .swiper-container', {
+				elements: '.swiper-slide',
+				prev: '.pdp-hero-goods .btn-arrow-s-red-left',
+				next: '.pdp-hero-goods .btn-arrow-s-red-right',
+				disable: 'swiper-button-disabled',
+				visibles: 5,
+				circle: false
+			});
+
+			new horizontal('.goods_carousel:not(.pdp-hero-goods) .swiper-container', {
+				elements: '.swiper-slide',
+				prev: '.goods_carousel:not(.pdp-hero-goods) .btn-arrow-s-red-left',
+				next: '.goods_carousel:not(.pdp-hero-goods) .btn-arrow-s-red-right',
+				disable: 'swiper-button-disabled',
+				visibles: 4,
+				circle: false
+			});
+
+			new horizontal('.spokesman-width .buynowshoping .swiper-container', {
+				elements: '.swiper-slide',
+				prev: '.spokesman-width .buynowshoping .btn-arrow-s-red-left',
+				next: '.spokesman-width .buynowshoping .btn-arrow-s-red-right',
+				disable: 'swiper-button-disabled',
+				visibles: 6,
+				circle: false
+			});
+		}
+	} 
+	else {
+		
+		$('.new-sub-banner').each(function(index, el) {
+			var next = $('.btn-arrow-red-right', el),
+				prev = $('.btn-arrow-red-left', el);
+			new Swiper($('.swiper-container', el), {
+				centeredSlides: false,
+				slidesPerView: 3,
+				nextButton: next,
+				prevButton: prev
+			});
+		});
+		
+		 //澶氬浘杞挱婊氬姩 (灏忓浘澶氬害婊氬姩 闇�瑕佸崟鐙彁鍙栥�傛墍浠ヨ寮曠敤璇s銆�)
+	    var mySwiper = new Swiper('.recommended-content .swiper-container', {
+				centeredSlides : false,
+				slidesPerView : 'auto',
+	 			nextButton : '.recommended-content .btn-arrow-red-right',
+				prevButton : '.recommended-content .btn-arrow-red-left'
+			});
+
+	    var mySwiper2 = new Swiper('.goods_carousel .swiper-container', {
+				centeredSlides : false,
+				slidesPerView : 'auto',
+	 			nextButton : '.goods_carousel .btn-arrow-s-red-right',
+				prevButton : '.goods_carousel .btn-arrow-s-red-left'
+			});
+
+	    var mySwiper = new Swiper('.buynowshoping .swiper-container', {
+				centeredSlides : false,
+				slidesPerView : 'auto',
+	 			nextButton : '.buynowshoping .btn-arrow-red-right',
+				prevButton : '.buynowshoping .btn-arrow-red-left'
+			});
+
+	      var mySwiper = new Swiper('.spokesman-width .buynowshoping .swiper-container', {
+				centeredSlides : false,
+				slidesPerView : 'auto',
+	 			nextButton : '.spokesman-width .buynowshoping .btn-arrow-s-red-right',
+				prevButton : '.spokesman-width .buynowshoping .btn-arrow-s-red-left'
+			});
+
+	     var mySwiper = new Swiper('.pad-guesslike-conent .swiper-container', {
+				centeredSlides : false,
+				slidesPerView : 'auto',
+	 			nextButton : '.pad-guesslike-conent .btn-arrow-red-right',
+				prevButton : '.pad-guesslike-conent .btn-arrow-red-left'
+			});
+	}
+	
+    function swiper_container_w(scw) {
+    	var slide_w = $("."+scw+" .swiper-slide").width();
+    	var slide_leg = $("."+scw+" .swiper-slide").length;
+    	if (slide_leg<8) {
+    		$("."+scw+" .swiper-container-horizontal").width(slide_w*slide_leg);
+    	}
+    }
+    
+    swiper_container_w("boutique_nav");
+});

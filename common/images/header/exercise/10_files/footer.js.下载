@@ -1,0 +1,13 @@
+$(document).ready(function() {
+    //关注puma官方微信
+    $('#puma-weixin-a').live("click",function() {
+		$('#puma-weixin-popup-a').show();
+		return false;//阻止事件冒泡，不执行点击body触发的事件
+	});
+    
+    //关闭二维码的弹层
+    $('body').live("click",function() {
+		$('#puma-weixin-popup-a').hide();
+	});
+
+});

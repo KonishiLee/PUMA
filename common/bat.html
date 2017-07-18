@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>备份</title>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html>
+　　<head>
+	　　　　<meta charset="utf-8">
+	　　　　<title>放大镜效果</title>
+	　　　　<style>
+	　　　　　　*{margin:0; padding: 0;}
+	　　　　　　#smallImg{
+		　　　　　　　　width: 300px;
+		　　　　　　　　height: 300px;
+		　　　　　　　　position: relative;
+		　　　　　　}
+	　　　　　　#smallImg img{
+		　　　　　　　　width:300px;
+		　　　　　　　　height:300px;
+		　　　　　　}/*定义小图*/
+	　　　　　　#lay{
+		　　　　　　　　position:absolute;
+		　　　　　　　　left: 0;
+		　　　　　　　　top:0;
+		　　　　　　　　border:solid 1px #999;
+		　　　　　　　　background:#fff;
+		　　　　　　　　opacity: 0.6;
+		　　　　　　　　filter:alpha(opacity=60);
+		　　　　　　　　display: none;
+		　　　　　　}/*定义放大镜*/
+	　　　　　　#bigImg{
+		　　　　　　　　width:300px;
+		　　　　　　　　height: 300px;
+		　　　　　　　　overflow: hidden;
+		　　　　　　　　position: absolute;
+		　　　　　　　　left:310px;
+		　　　　　　　　top:0;
+		　　　　　　　　display: none;
+		　　　　　　}
+	　　</style>
+
+</head>
+
+<body>
+　　<div id="smallImg">   <!-- 小图-->
+	　　　　<img src="img" />
+	　　　　<div id="lay"></div>　　<!-- 放大镜 -->
+	　　</div>
+　　<div id="bigImg"> <!-- 大图 -->
+	　　　　<img src="img" />
+	　　</div>
+</body>
+</html>
+
+JS:
+
+//获取ID太长我们直接封装一下
+
+function $(id){
+
+　　return document.getElementById(id);
+
+}
+
+window.onload = function(){
+
+　　var scale = 2; //缩放倍数
+
+　　var bigBox = $("bigImg"); //大图
+
+　　var smallBox = $("smallImg"); //小图
+
+　　var lay = $("lay"); //遮罩 放大镜
+
+　　var bigImg = bigBox.children[0];
+
+　　lay.style.width = parseInt(smallBox.offsetWidth / scale) + "px";
+
+　　lay.style.height= parseInt(smallBox.offsetHeight/ scale) + "px";
+
+　　bigImg.style.width = smallbox.offsetWidth * scale + "px";
+
+　　bigImg.style.height= smallbox.offsetHeight * scale + "px";
+
+　　smallBox.onmouseover = function(){
+
+　　　　lay.style.display = "block";
+
+　　　　bigBox.style.display = "block";
+
+　　};　　
+
+　　smallBox.onmousemove = function(e){
+
+
+
+　　　　e = e || event;　　
+
+　　　　var x = e.clientX - lay.offsetWidth / 2;
+
+　　　   var Y = e.clientY - lay.offsetHeight / 2;
+
+　　　　if(x <= 0){
+
+　　　　　　x = 0;
+
+　　　　};
+
+　　　　if(y <= 0){
+
+　　　　　　y = 0;
+
+　　　　};
+
+　　　　if(x >= smallBox.offsetWidth - lay.offsetWidth){
+
+　　　　　　x = smallBox.offsetWidth - lay.offsetWidth;
+
+　　　　};
+
+　　　　if(y >= smallBox.offsetHeight - lay.offsetHeight){
+
+　　　　　　y = smallBox.offsetHeight - lay.offsetHeight;
+
+　　　　};
+
+　　　　lay.style.left = x + "px";
+
+　　　　lay.style.top= y + "px";　
+
+　　　　var left = lay.offsetLeft * scale;
+
+　　　　var top = lay.offsettop * scale;
+
+　　　　bigImg.style.marginLeft = -1*left + "px";
+
+　　　　bigImg.style.marginTop = -1*top+ "px";
+
+
+
+　　};
+
+
+
+　　smallBox.onmouseout = function(){
+
+　　　　lay.style.display = "none";
+
+　　　　bigBox.style.display = "none";
+
+　　};
+
+};
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+@charset "UTF-8";
+/*公共类:格式化/标准化层叠样式表*/
+/*默认边距处理*/
+body{margin:0;padding:0;}
+h1,h3{margin:0;padding:0; }
+
+/*浮动*/
+.fl{float: left;}
+.fr{float: right;}
+/*清除浮动*/
+.clearFloat:after{
+    content:"";
+    display: none;
+    height: 0;
+    visibility: hidden;
+    clear:both;
+}
+.clearFloat{zoom:1;}
+
+ul{list-style: none;}
+/*超链接样式*/
+a{text-decoration: none;}
+/*盒子模型*/
+*{box-sizing: border-box;}

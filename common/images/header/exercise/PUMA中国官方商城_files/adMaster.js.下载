@@ -1,0 +1,37 @@
+/*AdMaster tracking code begin */
+var _smq = _smq || [];
+var cookieValue = document.cookie;
+var cookieName = "AI";
+var cookieStartAt = cookieValue.indexOf(""+cookieName+"=");  
+if(cookieStartAt==-1)  
+{  
+    cookieStartAt = cookieValue.indexOf(cookieName+"=");  
+}  
+if(cookieStartAt==-1)  
+{  
+    cookieValue = null;  
+}  
+else  
+{  
+    cookieStartAt = cookieValue.indexOf("=",cookieStartAt)+1;  
+    cookieEndAt = cookieValue.indexOf(";",cookieStartAt);  
+    if(cookieEndAt==-1)  
+    {  
+        cookieEndAt = cookieValue.length;  
+    }  
+    cookieValue = unescape(cookieValue.substring(cookieStartAt,cookieEndAt));//解码latin-1  
+    var sessionID = cookieValue;
+} 
+
+_smq.push(['_setAccount', '24b9abb', new Date()]);
+_smq.push(['_setCustomVar', 1,sessionID,1]);
+_smq.push(['pageview']);
+
+(function() {
+var sm = document.createElement('script'); sm.type = 'text/javascript'; sm.async = true;
+sm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'site.cdnmaster.com/sitemaster/collect.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sm, s);
+})();
+/*AdMaster tracking code end*/
+
+	

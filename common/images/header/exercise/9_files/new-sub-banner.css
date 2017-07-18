@@ -1,0 +1,107 @@
+@charset "UTF-8";
+.new-sub-banner{
+	width: 100%;
+	max-width: 1180px;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 100px;
+}
+
+
+.new-sub-banner .big-img{
+	float: left;
+}
+.new-sub-banner .swiper-box{
+	float: left;
+	width: 655px;
+	position: relative;
+}
+.new-sub-banner .swiper-box .swiper-container{
+	margin: 0 18px;
+}
+
+
+.new-sub-banner .swiper-slide{
+	padding: 0 15px;
+}
+
+.new-sub-banner .swiper-slide > a img{
+	width: 100%;
+}
+.name{}
+.name p{
+	font-family: 'geogtq-md', "微软雅黑", "黑体", "宋体", Arial, Helvetica, sans-serif;
+	color: #000000;
+}
+.name p:first-child{
+	font-size: 18px;
+}
+.name p:last-child{
+	font-size: 15px;
+}
+
+.new-sub-banner .btn-arrow {
+	margin-top: -20px;
+	width: 20px;
+	height: 40px;
+}
+.new-sub-banner .btn-arrow i{
+	background: url(../images/new-sub-banner/btn-arrow.png) no-repeat scroll 0 0 transparent;
+	width: 16px;
+	height: 26px;
+	top: 50%;
+	margin-top: -13px;
+}
+
+.new-sub-banner .btn-arrow-red-left i{
+	left: 0;
+	margin-left: 0;
+	background-position: 0 0;
+}
+.new-sub-banner .btn-arrow-red-right i{
+	left: auto;
+	margin-left: auto;
+	right: 0;
+	margin-right: 0;
+	background-position: -26px 0;
+}
+
+
+.new-sub-banner .mr-25{
+	margin-right: 25px;
+}
+
+
+@media (max-width: 1200px) {
+	.new-sub-banner{
+		max-width: 1000px;
+	}
+
+	.new-sub-banner .big-img{
+		width: 395px;
+	}
+	.new-sub-banner .swiper-box{
+		width: 580px;
+	}
+
+}
+
+
+
+@media (max-width: 1024px) {
+	.new-sub-banner{}
+
+
+	.new-sub-banner .big-img{
+		float: none;
+		display: block;
+		width: 655px;
+		margin: 0 auto;
+	}
+	.new-sub-banner .swiper-box{
+		float: none;
+		width: 655px;
+		margin: 0 auto;
+	}
+}

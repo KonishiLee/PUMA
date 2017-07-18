@@ -1,0 +1,503 @@
+var pageData;
+var clientIp
+$(window)
+		.load(
+				function() {
+					var listPage = $("#breadcrumb");// 判断是否是list页面
+					// 判断页面传递参数/搜索页面
+					if (window.location.href.indexOf("productALL.htm") != -1) {
+						var nokeyword = $("#nokeyword").val();
+						if (nokeyword != null) {
+							pageData = {
+								"navigation" : {
+									"pageName" : "search#[" + nokeyword + "]"
+								}
+							};
+						};
+						
+						var keywords = $("#keyword").val();
+						var newPageName = "search#[" + keywords + "]";
+						var count = $("#item_content .search-result-items li.grid-tile.col-12-3").length;
+						if (count != 0) {
+							var items = new Array();
+							for ( var i = 0; i < count; i++) {
+								var item = new Object();
+								item.productName = $(
+										"#list_item_productName_" + i).val();
+								item.productID = $("#list_item_productID_" + i)
+										.val();
+								item.productID = item.productID.substring(0,
+										item.productID.length - 1);
+								item.price = $("#list_item_sale_price_" + i)
+										.val();
+							/*	var json = JSON.stringify(item);*/
+								var json = item;
+								items[i] = json;
+							}
+							pageData = {
+								"navigation" : {
+									"pageName" : newPageName
+								},
+								"items" : items
+							};
+
+						}
+
+					} else if (listPage.length == 1) {// 判断是否是list页面(逻辑重构,存在空的list页面)
+						var count = $("#item_content .search-result-items li.grid-tile.col-12-3").length;
+						if (count != 0) {
+							var productCategoryList = $(
+									"#breadcrumb ul li:last-child a").attr(
+									"href");
+							if(productCategoryList == "javascript:void(0);"){
+								var keywords = $("#keyword").val();
+								var newPageName = "search#[" + keywords + "]";
+								var items = new Array();
+								for ( var i = 0; i < count; i++) {
+									var item = new Object();
+									item.productName = $(
+											"#list_item_productName_" + i).val();
+									item.productID = $("#list_item_productID_" + i)
+											.val();
+									item.productID = item.productID.substring(0,
+											item.productID.length - 1);
+									item.price = $("#list_item_sale_price_" + i)
+											.val();
+									/*var json = JSON.stringify(item);*/
+									var json = item;
+									items[i] = json;
+								}
+								pageData = {
+									"navigation" : {
+										"pageName" : newPageName
+									},
+									"items" : items
+								};
+
+								
+								
+							}else{
+							var items = new Array();
+							for ( var i = 0; i < count; i++) {
+								var item = new Object();
+								item.productName = $(
+										"#list_item_productName_" + i).val();
+								item.productID = $("#list_item_productID_" + i)
+										.val();
+								item.productID = item.productID.substring(0,
+										item.productID.length - 1);
+								item.price = $("#list_item_sale_price_" + i)
+										.val();
+								/*var json = JSON.stringify(item);*/
+								var json = item;
+								items[i] = json;
+							}
+							pageData = {
+								"navigation" : {
+									"pageName" : "product-list"
+								},
+								"productCategory" : productCategoryList,
+								"items" : items
+							};
+							}
+						}else if(count == 0){
+							pageData = {
+									"navigation" : {
+										"pageName" : "product-list"
+									},
+							};
+						};		
+					} else if (window.location.href.indexOf("/item") != -1) {
+						
+						/*var skuCode= "";
+						$(".usa li").each(function(){
+						    $(this).attr("skucode")
+						});*/
+												
+					var skuCode = $("#pdp .bianhao").find("span").text();
+						var curmbs = $("#pdp .grouping.clearfix .curmb").text()
+								.replace(/\s/g, "");
+						var productName = $("#pdp .goods_about p.about_tit")
+								.text();
+						if (curmbs.length > 0) {
+							curmbs = curmbs.substring(0, curmbs.length - 1);
+						}
+						var jsonItems = new Array();
+						var sizeList = $("#pdp .size li");
+					/*for ( var i = 0; i < sizeList.length; i++) {*/
+							var jsonItem = new Object();
+							jsonItem.productID = skuCode;
+							jsonItem.productName = productName;
+							jsonItem.productCategory = curmbs;
+							jsonItem.price = $(
+									"#pdp .goods_about p.about_cost span")
+									.text().replace(/\s|¥/g, "");
+							// jsonItem.UPC =
+							// $(sizeList[i]).attr("extentioncode");
+							jsonItems[0] = jsonItem;
+						/*}*/
+
+						var jsonPageName = new Object();
+						jsonPageName.pageName = "PDP";
+
+						pageData = new Object();
+						pageData.navigation = jsonPageName;
+						pageData.items = jsonItems;
+					} else if (window.location.href
+							.indexOf("shopping/cart/list") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "cart"
+							}
+						};
+						var count = $("#container div.cart_list div.cart_list_con").length;
+						if (count != 0) {
+							var items = new Array();
+							for ( var i = 0; i < count; i++) {
+								var item = new Object();
+								item.productID = $(
+										"#shoppingcart_productID_" + i).val();
+								item.productID = item.productID.substring(0,
+										item.productID.length - 1);
+								item.productName = $(
+										"#shoppingcart_productName_" + i).val();
+
+								item.UPC = $("#shoppingcart_extentionCode_" + i)
+										.val();
+								item.quantity = $("#shoppingcart_quantity_" + i)
+										.val();
+								item.price = $("#shoppingcart_salePrice_" + i)
+										.val();
+								item.subtotal = item.quantity * item.price;
+
+								// item.subtotal=$("#sumListPrice").text().replace(/\s|￥/g,
+								// "");
+								// item.discount=$("#discount").text().replace(/\s|-￥/g,
+								// "");
+								/*var json = JSON.stringify(item);*/
+								var json = item;
+								items[i] = json;
+							}
+							pageData = {
+								"navigation" : {
+									"pageName" : "cart"
+								},
+								"items" : items
+							};
+						}
+					} else if (window.location.href.indexOf("order/checkout") != -1) {
+						var count = $(".checkout-order-details div.checkout-cart-list div.col-12-12").length;
+						// var subtotal = $(".price_ipad_rig
+						// .mar_but").eq(1).text().replace(/\s|￥/g, "");
+						// var discount = $(".price_ipad_rig
+						// .mar_but").eq(3).text().replace(/\s|-￥/g, "");
+
+						var items = new Array();
+						for ( var i = 0; i < count; i++) {
+							var item = new Object();
+							item.productName = $("#list_item_productName_" + i)
+									.val();
+							item.productID = $("#list_item_productID_" + i)
+									.val();
+							item.productID = item.productID.substring(0,
+									item.productID.length - 1);
+							item.price = $("#list_item_sale_price_" + i).val();
+							item.quantity = $("#list_item_quantity_" + i).val();
+							item.UPC = $("#list_item_extentionCode_" + i).val();
+							item.subtotal = item.quantity * item.price;
+							// item.subtotal = subtotal;
+							// item.discount = discount;
+						/*	var json = JSON.stringify(item);*/
+							var json = item;
+							items[i] = json;
+						}
+						pageData = {
+							"navigation" : {
+								"pageName" : "order-checkout-guest"
+							},
+							"items" : items
+						};
+					} else if (window.location.href.indexOf("myAccount/order/") != -1) {
+						var count = $(".cart_conbox.settle-accounts .checkorder-product").length;
+						var items = new Array();
+						if (count > 0) {
+							$(
+									".cart_conbox.settle-accounts .checkorder-product")
+									.each(
+											function(i) {
+												var item = new Object();
+												item.productName = $(this)
+														.find(
+																".checkorder-name")
+														.text().replace(/\s/g,
+																"");
+												item.productID = $(
+														"#myAccount_order_productID_"
+																+ i).val();
+												item.productID = item.productID
+														.substring(
+																0,
+																item.productID.length - 1);
+												item.quantity = $(this)
+														.find(
+																".checkorder-value.qty")
+														.text();
+												
+												item.price =$(this).find(
+												".checkorder-pricing")
+												.text().replace(/\s/g,
+												"").split('¥').join('');
+
+												if("" == item.price){
+													item.price=0;
+												}
+												item.subtotal = item.price
+												* item.quantity;
+												
+												item.UPC = $(
+														"#myAccount_order_extentionCode_"
+																+ i).val();
+												/*var json = JSON.stringify(item);*/
+												var json = item;
+												items[i] = json;
+											});
+							var order = new Object();
+							order.id = $(
+									".cart_conbox.settle-accounts .col-12-3.checkorder-con-tit")
+									.text();
+							order.grossTotal = $(
+							".checkorder-bottom:eq(1) .checkorder-total span:eq(0)")
+							.text().replace(/\s|总计：￥/g, "");
+							order = JSON.stringify(order);
+							pageData = {
+								"navigation" : {
+									"pageName" : "order-details"
+								},
+								"items" : items,
+								"order" : order
+							};
+						}
+					} else if (window.location.href
+							.indexOf("/order/createOrderSuccess") != -1) {
+						
+						var count = $(".check-order-tbl .checkorder-list .checkorder-product").length;
+						var items = new Array();
+						if (count > 0) {
+							 $(".check-order-tbl .checkorder-list .checkorder-product").each(
+											function(i) {
+												var item = new Object();
+												item.productName = $(this)
+														.find(
+																".checkorder-name")
+														.text().replace(/\s/g,
+																"");
+												item.productID = $(
+														"#myAccount_order_productID_"
+																+ i).val();
+												item.productID = item.productID
+														.substring(
+																0,
+																item.productID.length - 1);
+												item.quantity = $(this)
+														.find(
+																".checkorder-value:eq(2)")
+														.text();
+												item.price = $(this).find(
+												".checkorder-pricing")
+												.text().split('¥').join('');
+												
+												if("" == item.price){
+													item.price=0;
+												}
+												
+												item.subtotal = item.price
+												* item.quantity;
+												
+												item.UPC = $(
+														"#myAccount_order_extentionCode_"
+																+ i).val();
+												/*var json = JSON.stringify(item);*/
+												var json = item;
+												items[i] = json;
+											});
+							var order = new Object();
+							order.id = $(
+									".cart_conbox.settle-accounts .col-12-3.checkorder-con-tit")
+									.text();
+							order.grossTotal = $(
+									".checkorder-bottom:eq(1) .checkorder-total span:eq(0)")
+									.text().replace(/\s|总计：￥/g, "");
+							order = JSON.stringify(order);
+							pageData = {
+								"navigation" : {
+									"pageName" : "order-payment-page"
+								},
+								"items" : items,
+								"order" : order
+							};
+						}
+						
+
+					} else if (window.location.href
+							.indexOf("shopping/member/registSuccess") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "member-register-success"
+							}
+						};
+					} else if (window.location.href
+							.indexOf("shopping/member/regist") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "member-register"
+							}
+						};
+					} else if (window.location.href
+							.indexOf("member/locsepassword?mobile=") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "member-lostpassword"
+							}
+						};
+					} else if (window.location.href.indexOf("member/complete") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "member-jointlogin-complete"
+							}
+						};
+					} else if (window.location.href
+							.indexOf("myAccount/orderDetails") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "member-order-history"
+							}
+						};
+					} else if (window.location.href
+							.indexOf("shopping/member/login") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "member-login"
+							}
+						};
+					} else if (window.location.href.indexOf("account/profile") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "member-profile"
+							}
+						};
+					} else if (window.location.href
+							.indexOf("account/receiveaddress") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "member-shippingAddress"
+							}
+						};
+					} else if (window.location.href
+							.indexOf("order/loginCheckout") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "order-checkout-login"
+							}
+						};
+					} else if (window.location.href.indexOf("order/success") != -1) {
+						pageData = {
+							"navigation" : {
+								"pageName" : "order-checkout-success"
+							}
+						};
+					} else if (window.location.href.indexOf("/help") != -1) {
+						var url = window.location.href;
+						var newurl = url.substring(url.lastIndexOf("\/") + 1);
+						var finalName = newurl.substring(0, newurl.length - 4);
+						var finalPageName = "help-[" + finalName + "folder]";
+						pageData = {
+							"navigation" : {
+								"pageName" : finalPageName
+							}
+						};
+					} else if (window.location.href.indexOf("/collections") != -1) {
+						var url = window.location.href;
+						var newurl = url.substring(url.lastIndexOf("\/") + 1);
+						var finalname = "brandpage-[" + newurl + "]";
+						pageData = {
+							"navigation" : {
+								"pageName" : finalname
+							}
+						};
+					}
+
+					if (typeof (pageData) == "undefined") {
+						pageData = {
+							"navigation" : {
+								"pageName" : "PUMA中国官方商城"
+							}
+						};
+					}
+
+					var cip = returnCitySN["cip"];
+/*					var ipurl = _contextPath+ '/getIpAddr';
+					function CheckServiceLogin() {						
+					            $.ajax({
+					            	      url: ipurl,
+					            	      type: "POST",
+					            	     success:function(data){
+					            	    var obj = new Function("return" + data)();  //获取后台list
+					            	     clientIp = obj.ip;
+					            	}
+					            });
+					        }
+					        
+					CheckServiceLogin();*/
+					var info = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip="
+							+ cip;
+					
+					$.getScript(info, function() {
+						// localtion 信息的加载
+
+						if (remote_ip_info.ret == "1") {
+							var clientcountry = remote_ip_info.country;
+							var clientprovince = remote_ip_info.province;
+							var clientcity = remote_ip_info.city;
+							/*
+							 * anonymous authenticated registered 三个变量状态的修改
+							 */
+							var anonymousStatus = false;
+							var authenticatedStatus = false;
+							var registeredStatus = false;
+							var iscookie = document.cookie.indexOf("l="); // 如果返回值是-1，表示不存在
+							var loginStatus = document.cookie.indexOf("u_l=");
+							if (loginStatus != -1) {
+								authenticatedStatus = true;
+								registeredStatus = true;
+							} else if (iscookie != -1 && loginStatus == -1) {
+								registeredStatus = true;
+							} else if (iscookie == -1) {
+								anonymousStatus = true;
+							}
+							;
+							// alert(JSON.stringify(pageData));
+							pageData.navigation = pageData.navigation || {};
+							pageData.navigation.customer = {
+								ID : 'abckeCj7ezZxeX7Y0qfNY7FlQQ',
+								anonymous : anonymousStatus,
+								authenticated : authenticatedStatus,
+								registered : registeredStatus,
+								localeCountry : 'CN',
+								localLanguage : 'zh-cn',
+								location : {
+									city : clientcity,
+									country : clientcountry,
+									postalCode : '200000',
+									region : clientprovince
+								}
+							};
+
+						}
+					});
+					(function() {
+						var s = document.createElement('script');
+						s.async = true;
+						s.src = "//s.btstatic.com/tag.js#site=HXSHfoz";
+						document.getElementsByTagName('head')[0].appendChild(s);
+					}());
+				});

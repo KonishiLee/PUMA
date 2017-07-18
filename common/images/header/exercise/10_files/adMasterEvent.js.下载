@@ -1,0 +1,248 @@
+$(document).ready(function() {
+	/*$("a").click(function() {*/
+	$("body").delegate("a", "click", function() {
+		if ($(this).hasClass('nav-primary')) {
+			// 导航条（一级）
+			var navli_tit_a = $(this).text().replace(/(^\s*)|(\s*$)/g, "");
+			var num = $(this).parent().index();
+			_smq.push(['custom', '0' + num + 'BTN', '导航－' + navli_tit_a + '']);
+
+		} else if ($(this).parent().parent().parent().hasClass('cont-kv-cell')) {
+			// KV
+			var this_text = $(this).text().replace(/(^\s*)|(\s*$)/g, "");
+			var num = $(this).parent().parent().parent().parent().parent().parent().index();
+			_smq.push(['custom', this_text, 'Panel'+num]);
+			
+
+		} else if ($(this).parent().hasClass('photo')) {
+			// 当季热卖(点击图片)
+			var cell_tile_a = $(this).parent().parent().find('.small-atext').text();
+			var num = $(this).parent().parent().index() + 1;
+			_smq.push(['custom', cell_tile_a, '当季热卖'+num]);
+
+		} else if ($(this).hasClass('small-atext')) {
+			// 当季热卖(点击文字)
+			var this_text = $(this).text();
+			var num = $(this).parent().index() + 1;
+			_smq.push(['custom', this_text, '当季热卖'+num]);	
+			
+
+		} else if ($(this).parent().hasClass('swiper-slide')) {
+			// 热卖推荐
+			var recommend_name = $(this).parent().find('.recommend-name').text().replace(/(^\s*)|(\s*$)/g, "");
+			var num = $(this).parent().index() + 1;
+			_smq.push(['custom', recommend_name, '热卖推荐'+num]);
+			
+
+		} else if ($(this).parent().parent().hasClass('swiper-slide')) {
+			// 新品上市
+			var buynow_title = $(this).find('.buynow-title').text().replace(/(^\s*)|(\s*$)/g, "");
+			var num = $(this).parent().parent().index() + 1;
+			_smq.push(['custom', buynow_title, '新品上市'+num]);
+
+			
+		} else if ($(this).parent().parent().parent().hasClass('pic-spotlight-body')) {
+			// banner
+			var banner_title = $(this).text().replace(/(^\s*)|(\s*$)/g, "");
+			var num = $(this).parent().parent().parent().parent().parent().index() - 4;
+			if(window.location.href.indexOf("collections/ignite-disc") != -1){
+				num = $(this).parent().parent().parent().parent().parent().index() - 3;
+			}
+			_smq.push(['custom', banner_title, 'Banner'+num]);
+			
+
+		} else if ($(this).parent().parent().parent().parent().hasClass('video-textall')) {
+			// 了解更多
+			var this_title = $(this).text().replace(/(^\s*)|(\s*$)/g, "");
+			_smq.push(['custom', this_title]);		
+
+		} else if ($(this).parent().hasClass('scroll-dots') || $(this).parent().hasClass('arrow-right') || $(this).parent().hasClass('arrow-left') || $(this).parent().hasClass('scll-btn-next') || $(this).hasClass('video_button')) {
+			// 过滤轮播按钮
+		} else {
+			if ($(this).parent().hasClass('navtion-title')) {
+				// 导航条（二级）
+				var navli_tit_a = $(this).text().replace(/(^\s*)|(\s*$)/g, "");
+				var this_top_text = $(this).parent().parent().parent().parent().parent().find('.nav-primary').text().replace(/(^\s*)|(\s*$)/g, "");
+				_smq.push(['custom', navli_tit_a, this_top_text]);			
+
+			} else {
+				if ($(this).parent().find('p').length) {
+					// 导航条（三级） 图片
+					var navli_tit_p = $(this).parent().find('p').text().replace(/(^\s*)|(\s*$)/g, "");
+					var this_top_text = $(this).parent().parent().parent().parent().parent().find('.nav-primary').text().replace(/(^\s*)|(\s*$)/g, "");
+					_smq.push(['custom', navli_tit_p, this_top_text]);
+				
+					
+				}else  if ($(this).parent().parent().find('p').length) {
+					// 导航条（三级）
+					var navli_tit_p = $(this).text().replace(/(^\s*)|(\s*$)/g, "");
+					var this_top_text = $(this).parent().parent().parent().parent().parent().find('.nav-primary').text().replace(/(^\s*)|(\s*$)/g, "");
+					_smq.push(['custom', navli_tit_p, this_top_text]);
+				
+					
+				}
+			}
+		}
+	});
+	/*if (window.location.href.indexOf("productALL.htm") || window.location.href.indexOf("/item") != -1) {*/
+		// 用于pdp和list快速购买
+		// 取商品名称、产品编号、原价、现价、数量
+		$("body").delegate(".about_but", "click", function() {
+			var pdp_name = $(".about_tit").text().replace(/(^\s*)|(\s*$)/g, "");
+			//9位code
+			/*var pdp_bh = $(".bianhao span").text();*/ 
+			//12位code
+			var pdp_ec = $(".cur-szbk").attr("extentioncode");
+			var yuanj = $(".about_cost s").text().replace(/(^\s*)|(\s*$)/g, "");
+			var xianj = $(".about_cost span").text().replace(/(^\s*)|(\s*$)/g, "");
+			var pdp_sl = $(".drop-down-box .btn b").text().replace(/(^\s*)|(\s*$)/g, "");
+			
+			var text_s = (pdp_ec+'-'+xianj+'-'+yuanj+'-'+pdp_sl).split('¥').join('');
+			var text_s_2 = (pdp_sl+'*'+xianj).split('¥').join('');
+
+			_smq.push(['custom', '加入购物车',pdp_name,text_s,text_s_2]);	
+			
+		});		
+	
+	// mini购物车
+	// spbh是 商品编号
+	/*$(".mini-jiez").click(function() {*/
+	$("body").delegate(".mini-jiez" ,"click" ,function(){
+		$(".checkout-cart-list").each(function(index, data) {
+			/*var count = $(".swiper-slide.col-12-12.swiper-slide-active").length;*/
+			var count = 0;
+			$(".swiper-slide", data).each(function(m, n) {
+				var sp_name = $(this).find('.mini-cart-name a').text().replace(/(^\s*)|(\s*$)/g, "");
+				var sm = $(this).find('.mini-cart-attributes .value').text().replace(/(^\s*)|(\s*$)/g, "");
+				var jg = ($(this).find('.mini-cart-pricing').text()).split('¥').join('').replace(/(^\s*)|(\s*$)/g, "");
+				var sl = $(this).find('.mini-cart-attributes .value:eq(2)').text().replace(/(^\s*)|(\s*$)/g, "");	
+				var spbh = $("#minishoppingcart_extentionCode_"+ count).val().replace(/(^\s*)|(\s*$)/g, "");									
+				_smq.push(['custom', 'mini购物车去结账', sp_name, spbh + '-' + sl, jg]);				
+				count+=1
+			});				
+		})
+	});
+
+	if (window.location.href.indexOf("shopping/cart/list") != -1){
+	//购物车 
+	$(document).ready(function() {
+	    // 订单ID、商品名称、产品编号
+	    /*$(".ste_btn,.js_btn").click(function() {*/
+		$("body").delegate(".ste_btn , .js_btn , .jiezhang_btn" ,"click" ,function(){
+	        $(".cart_list").each(function(index, data) {
+	        	 var count = 0;
+	            $(".cart_list_con", data).each(function(m, n) {
+	                var sp_name = $(this).find('.goods_name').text().replace(/(^\s*)|(\s*$)/g, "");
+	             /*   var sp_bh = $(this).find('.goods_cla span').text().replace(/(^\s*)|(\s*$)/g, "");*/	               
+	                var sp_bh = $("#shoppingcart_extentionCode_"+ count).val().replace(/(^\s*)|(\s*$)/g, "");
+	                var sl = $(this).find('.select-bom .btn b').text().replace(/(^\s*)|(\s*$)/g, "");
+	                var zk_s = ($("#discount").text().replace(/[\r\n]/g,"").replace(/[ ]/g,"")).split('￥').join('').replace('-', '');
+	             
+	                _smq.push(['custom', '购物车去结账', sp_name, sp_bh + '-' + sl + '_' + zk_s]);                   
+	                count+=1
+	            	});
+	          	})
+	      	});
+		});	
+	 }
+
+/** 结账界面 ChekOut.js  有2个 游客和会员*/
+
+	
+	/** 最后的支付成功界面*/
+	if(window.location.href.indexOf("myAccount/order/") != -1 ){
+		/*alert($(".order-status-span").text());*/
+		if ($(".checkorder-con-status").find('span').length) {
+			if("库房准备中" == $(".order-status-span").text()){
+				/*//订单号
+				var  OrderID = $(".col-12-3.checkorder-con-tit").text();
+				//运费
+				var freight= $("#actualFreight").val();	
+				//总计
+				var total = $("#total").val();
+				_smq.push(['custom', '查询订单',OrderID,'订单支付成功-'+freight,total]);*/
+				/*_smq.push(['custom', '查询订单','订单号','订单支付状态-运费-商品名称1-商品编号1-商品价格1-商品名称2-商品编号2-商品价格2',订单金额]);*/
+				$(".checkorder-list").each(function(index, data) {
+					count=0;
+					$(".checkorder-product", data).each(function(m, n) {
+						//订单号
+						var  OrderID = $(".col-12-3.checkorder-con-tit").text();
+						//运费
+						var freight= $("#actualFreight").val();	
+						//总计
+						var total = $("#total").val();
+						
+						// 名称
+						var name = $(this).find(".checkorder-name a").text().replace(/(^\s*)|(\s*$)/g, "");
+
+						// 编号
+						var bianhao = $("#myAccount_order_extentionCode_"+count).val();
+
+						// 价格
+						var jiage = $(this).find(".checkorder-pricing").text().replace(/(^\s*)|(\s*$)/g, "");
+
+						var yunf = $(this).find('.checkorder-tit .checkorder-bottom:eq(0) .checkorder-total:eq(2) span').text().split('运费：¥').join('');
+						var zongji = $(this).find('.checkorder-tit .checkorder-bottom:eq(1) .checkorder-total span:eq(0)').text().split('总计：¥').join('');
+						/*console.log('custom', '查询订单',ddh,ddzt+'-'+yunf+'-'+name+'-'+bianhao+'-'+jiage,zongji);*/
+						_smq.push(['custom', '查询订单',OrderID,'订单支付成功-'+freight+'-'+name+'-'+bianhao+'-'+jiage,total]);
+						 count+=1;
+						// _smq.push(['custom', '查询订单', ddh, ddzt + '-' + yunf, zongji]);
+					});
+				});
+			
+			}
+		}else if($(".checkorder-con-status").find('button')){
+			$(".btn-checkorder-pay").click(function() {
+			//订单号
+			var  OrderID = $(".col-12-3.checkorder-con-tit").text();		
+			//运费
+			var freight= $("#actualFreight").val();			
+			//总计
+			var total = $("#total").val();
+			_smq.push(['custom', '支付订单',OrderID,'正在去支付-'+freight,total]);
+			
+			});
+		}		
+
+	}else if(window.location.href.indexOf("order/createOrderSuccess") != -1){	
+			/*alert($(".cgjz_tit").text())*/
+			//订单号
+			var  OrderID = $(".col-12-3.checkorder-con-tit").text();
+			//运费
+			var freight= $("#actualFreight").val();	
+			//总计
+			var total = $("#total").val();
+			
+			if("订单尚未支付" == $(".cgjz_tit").text()){
+			_smq.push(['custom', '查询订单',OrderID,'订单支付失败-'+freight,total]);
+			
+			}
+			
+			$(".cggmbtn").click(function() {
+				_smq.push(['custom', '支付订单',OrderID,'正在去支付-'+freight,total]);
+				
+			});
+					
+		}		
+	
+	if(window.location.href.indexOf("myAccount/orderDetails") != -1){
+		/**
+		 * 历史订单页面  支付失败页面  根据订单号查询订单后的页面  
+		 * */
+		$(".goToPayOrder").click(function() {
+			var OrderID = $(this).attr("salesordercode");
+			// 运费
+			var yunf = $(this).parent().parent().find('.checkorder-tit .checkorder-bottom:eq(0) .checkorder-total:eq(2) span').text().split('运费：¥').join('');
+
+			/*var actualFreight_1 = $(this).parent().parent().find('.checkorder-tit .checkorder-bottom:eq(0) #actualFreight_1').val();*/
+
+
+			// 总计
+			var zongji = $(this).parent().parent().find('.checkorder-tit .checkorder-bottom:eq(1) .checkorder-total span:eq(0)').text().split('总计：￥').join('');
+
+			/*var total_1 = $(this).parent().parent().find('.checkorder-tit .checkorder-bottom:eq(1) #total_1').val();*/
+			_smq.push(['custom', '支付订单',OrderID,'正在去支付-'+yunf,zongji]);
+			
+		});
+		}
+});

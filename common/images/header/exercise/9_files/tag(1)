@@ -1,0 +1,74 @@
+BrightTag.site('HXSHfoz',function(s){
+s.script('//s.btstatic.com/lib/d8a51e757bf0b970001759523d5d17e8d31c2547.js?v\x3d2').wait(function(){
+s.domready(function(){
+_bt_UA = window._bt_UA || {
+         d: {},
+         s: function() { return window.JSON.stringify(this.d); },
+        ts: function() {
+            var now = new Date();
+            return now.getTime() + "T" + now.getTimezoneOffset();
+          },
+        sr: function() {
+            return screen.width+"x"+screen.height;
+          },
+        vp: function() {
+            return self.innerWidth+"x"+self.innerHeight;
+          },
+        cd: function() {
+            return screen.colorDepth;
+          },
+        ce: function() {
+            return navigator.cookieEnabled;
+          },
+        pl: function() {
+            var plugins = [];
+            try {
+              BrightTag.Util.each(navigator.plugins, function(p) {
+                plugins.push(p.name);
+              });
+            } catch (e) {}
+            return plugins.join(";");
+           },
+        ul: function() {
+              return navigator.language;
+            },
+        de: function() {
+              return document.charset;
+            },
+        je: function() {
+              return navigator.javaEnabled();
+            },
+        fl: function() {
+              var f = "",
+                p = navigator.plugins || null;
+              if (p && p.length) {
+                for (var i = 0; i < p.length; i++) {
+                  if (p[i].name.indexOf('Shockwave Flash') != -1) {
+                    f = p[i].description.split('Shockwave Flash ')[1];
+                    break;
+                  }
+                }
+              } else if (window.ActiveXObject) {
+                for (var i = 10; i >= 2; i--) {
+                  try {
+                    var fl = eval("new ActiveXObject('ShockwaveFlash.ShockwaveFlash." + i + "');");
+                    if (fl) {
+                      f = i + '.0';
+                      break;
+                    }
+                  } catch (e) {}
+                }
+              }
+              return f;
+            },
+        r: function(attributes) {
+          BrightTag.Util.each(attributes, function(a) {
+            _bt_UA.d[a] = _bt_UA.d[a] || _bt_UA[a]();
+          });
+        }
+      };_bt_UA.r(['ts','sr','vp','cd','ce','pl','de','ul','je','fl']);s.secondary(function(c){
+c.appendJs('_bt_UA.s()');
+});
+});
+});
+});

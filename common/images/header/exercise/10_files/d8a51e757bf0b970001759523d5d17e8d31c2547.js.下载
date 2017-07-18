@@ -1,0 +1,29 @@
+var dwReportSuiteIDPrimary = 'pumastore-ch'
+var dwReportSuiteID = dwReportSuiteIDPrimary + ',pumaglobal'
+
+var dwCharSet = 'ISO-8859-1'
+var dwLinkFilters = 'javascript:,cn.puma.com'
+var dwTimeZoneGMT = '+9'
+var dwSiteID = 'CN Shop'
+var dwCurrencyCode = 'CNY'
+
+
+//strip URL
+var pathArray = window.location.pathname.split( '/' );
+var pagePath = "";
+for (i = 1; i < pathArray.length; i++) {
+  pagePath += " : ";
+  pagePath += pathArray[i].replace(".html", "");
+}
+
+var dirTier1 = pathArray[1];
+if (pathArray[2]) {var dirTier2 = pathArray[2];}
+if (pathArray[3]) {var dirTier3 = pathArray[3];}
+
+
+//strip Breadcrumbs (Category page)
+//var crumbLink = document.getElementsByClassName("list-inline-last").getAttribute("href");
+//console.log(crumbLink);
+
+
+
