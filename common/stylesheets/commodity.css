@@ -50,10 +50,52 @@
      width: 520px;
      padding: 38px 0 10px;
      border-bottom: 1px solid #e0e0e0;
+     position: relative;
 }
- .img-wrap .img-box .big-img{
-    width: 520px;
+
+
+#img-box{
+    border: 1px solid red;
+    // position: relative;
 }
+
+ /*------放大镜-------------*/
+#small-box {
+    position: relative;
+    z-index: 1;
+    border: 1px solid yellow;
+}
+/*定义小图*/
+#glass-box{
+    display: none;
+    width: 160px;
+    height: 120px;
+    position: absolute;
+    background: #ffffcc;
+    border: 1px solid #ccc;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}/*定义放大镜*/
+
+#big-box {
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 520px;
+    width: 500px;
+    height: 400px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    z-index: 1;
+    background-color: white;
+}
+
+#big-box img {
+    position: absolute;
+    z-index: 5
+}
+
+
  .img-wrap .slide{
      width: 520px;
      height: 95px;

@@ -389,17 +389,19 @@
       <div class="sex clearFloat">
         <div class="name fl">
           <label for=""><span>*</span>姓名</label><br>
-          <input type="text" name="" value="" placeholder="请输入您的姓名">
+          <input type="text"  class="ipt-name" placeholder="请输入您的姓名">
+          <p class="tips"></p>
         </div>
         <div class="radio fr">
           <label for="" >姓名</label><br>
-          <input type="radio"><label for="">男</label>
-          <input type="radio"> <label for="">女</label>
+          <input type="radio" name="sex" checked><label>男</label>
+          <input type="radio" name="sex" > <label>女</label>
         </div>
       </div>
       <div class="group-1">
         <label for=""><span>*</span>手机号码</label><br>
         <input type="text" placeholder="请输入您的手机号码" class="ipt-phone">
+        <p class="tel-number"></p>
       </div>
       <div class="group-1">
         <label for="">图片验证码</label><br>
@@ -413,17 +415,19 @@
       <div class="group-2">
         <label for=""><span>*</span>密码</label><br>
         <input type="password" placeholder="输入6-20位的数字加字母的组合密码" class="ipt-password">
+        <p class="t-password"></p>
       </div>
       <div class="group-2">
         <label for=""><span>*</span>确认密码</label><br>
         <input type="password" placeholder="输入确认密码" class="ipt-re-password">
+        <p class="r-password"></p>
       </div>
       <div class="group-2">
         <label for="">邮箱</label><br>
         <input type="password" placeholder="请输入邮箱">
       </div>
-      <input type="radio"><label for="" class="tk">我愿意订阅来自cn.puma.com的邮件</label><br>
-      <input type="radio"><label for="" class="tk">我已阅读并同意PUMA中国官方商城的<a href="javascript:;">《使用条款》</a>和<a href="javascript:;">《隐私政策》</a>
+      <input type="radio" name="do" ><label for="" class="tk">我愿意订阅来自cn.puma.com的邮件</label><br>
+      <input type="radio" name="do" checked><label for="" class="tk">我已阅读并同意PUMA中国官方商城的<a href="javascript:;">《使用条款》</a>和<a href="javascript:;">《隐私政策》</a>
       </label>
       <br>
       <a href="javascript:;" class="btn-register" onclick="register()">提交</a>
@@ -613,6 +617,6 @@
 </footer>
 
 <script src="javascripts/header-footer.js"></script>
-<script src="javascripts/login.js"></script>
+<script src="javascripts/register.js"></script>
 </body>
 </html>

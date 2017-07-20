@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.content{
+    width: 100%;
+}
+.new-box{
+    width: 60%;
+    height: 2000px;
+    background-color: pink;
+    margin: 0 auto;
+}

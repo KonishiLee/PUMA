@@ -7,7 +7,7 @@ var cList = oList.children;
 for (let  i = 1; i < cList.length; i++) {
   cList[i].addEventListener('mouseenter', function(e){
     showEle(e.target.lastElementChild);
-  })
+  });
 
   cList[i].addEventListener('mouseleave', function(e){
     hideAll();
@@ -31,7 +31,7 @@ document.body.onscroll = function () {
   }else{
     $('.dis-fixed')[0].className = 'dis-fixed';
   }
-}
+};
 
 // 模仿 jquery 查找 dom 方法
 function $(ele) {
@@ -42,7 +42,23 @@ function $(ele) {
  }
 }
 
-
+//------
+var speed=40;
+var h2=$('.roll-two');
+var h1=$('.roll');
+var h=$('.simple-banner');
+h2.innerHTML=h1.innerHTML;
+function Marquee(){
+    if(h2.offsetTop-h.scrollTop<=0){
+        h.scrollTop-=h1.offsetHeight;
+    }
+    else{
+        h.scrollTop++;
+    }
+}
+var MyMar=setInterval(Marquee,speed);
+h.onmouseover=function() {clearInterval(MyMar)};
+h.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
 
 
 

@@ -321,18 +321,23 @@ header .navtion-container{
 .simple-banner{
     width: 100%;
     text-align: center;
-    height: 40px;
+    /*height: 40px;*/
     margin: 0 auto;
     z-index: 2;
+    overflow: hidden;
     background-color:#333;
 }
-.simple-banner p{
+
+.simple-banner .roll>.li{
+    display: inline-block;
+    height: 40px;
     margin: 0 auto;
     line-height: 40px;
     font-size: 14px;
     color: #fff;
-    font-family: "geog-bdit","微软雅黑", "黑体","宋体", Arial, Helvetica, sans-serif;;
+    font-family: "geog-bdit","微软雅黑", "黑体","宋体", Arial, Helvetica, sans-serif;
 }
+
 
 
 /*----------------------------------页尾----------------------------------------*/
